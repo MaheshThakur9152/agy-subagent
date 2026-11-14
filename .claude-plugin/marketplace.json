@@ -1,7 +1,11 @@
 {
-  "name": "agy-claude-plugin",
+  "name": "agy-subagent",
   "owner": { "name": "MaheshThakur9152" },
   "plugins": [
-    { "name": "agy", "source": "./", "description": "Run agy as a worker agent from Claude Code." }
+    {
+      "name": "agy",
+      "source": "./",
+      "description": "Run Antigravity CLI (agy) as a subagent worker from Claude Code."
+    }
   ]
 }

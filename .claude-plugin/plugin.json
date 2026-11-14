@@ -1,8 +1,8 @@
 {
   "name": "agy",
   "version": "0.1.0",
-  "description": "Run Antigravity CLI (agy) as a worker agent from Claude Code: headless, permissions skipped, caveman output, parallel-friendly.",
+  "description": "Run Antigravity CLI (agy) as a subagent worker from Claude Code: headless, permissions skipped, caveman output, parallel-friendly.",
   "author": { "name": "MaheshThakur9152" },
-  "repository": "https://github.com/MaheshThakur9152/agy-claude-plugin",
+  "repository": "https://github.com/MaheshThakur9152/agy-subagent",
   "license": "MIT"
 }
