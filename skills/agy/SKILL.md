@@ -19,11 +19,11 @@ Extra agy flags go before `--`:
 "${CLAUDE_PLUGIN_ROOT}/skills/agy/scripts/agy-run.sh" --model <model> --effort high --add-dir ../other -- "<task>"
 ```
 
-The script always passes `-p --dangerously-skip-permissions` and prepends a caveman/obey preamble. Never drop those.
+The script always passes `--dangerously-skip-permissions` and starts the prompt with agy's `/caveman:ultracave` skill plus an obey preamble. Never drop those. Needs the caveman plugin installed in agy (`agy plugin list`).
 
 ## Many workers
 
-- No limit on worker count. Split the job into independent tasks, one per worker.
+- No limit on worker count (4 at once tested). Split the job into independent tasks, one per worker.
 - Launch each worker as its own Bash call with `run_in_background: true`, all in one message. You get notified as each exits; read its output then.
 - Workers sharing files can clobber each other. Give each worker distinct files, or a distinct `git worktree` via `--add-dir` / `cd`.
 - Long tasks: add `--print-timeout 30m` (or similar) so a hung worker ends.

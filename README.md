@@ -3,7 +3,7 @@
 Claude Code plugin with one skill, `agy`: Claude delegates tasks to [Antigravity CLI](https://antigravity.google) (`agy`) worker agents.
 
 - agy runs headless (`agy -p`) with `--dangerously-skip-permissions`, always.
-- agy is told to follow Claude's task exactly and reply in caveman style (terse, no filler).
+- Every agy worker runs with agy's `/caveman:ultracave` skill (needs caveman plugin in agy) and is told to follow Claude's task exactly.
 - Claude can launch any number of agy workers in parallel (background Bash calls).
 
 ## Install
@@ -17,7 +17,7 @@ Requires `agy` on `PATH`.
 
 ## Use
 
-Ask Claude: "use agy to ..." or "split this across 4 agy agents".
+Shortcut: `/agy:agy <task>`. Or ask Claude: "use agy to ..." or "split this across 4 agy agents".
 
 Manual:
 
