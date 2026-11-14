@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Fake agy for tests. Records what the runner passed; never contacts anything.
+d=${MOCK_DIR:?MOCK_DIR not set}
+mkdir -p "$d"
+printf '%s\0' "$@" >"$d/argv"
+cat >"$d/stdin"
+pwd >"$d/cwd"
+env >"$d/env"
+echo $$ >"$d/pid"
+child=
+on_sig() {
+  echo "$1" >>"$d/sig"
+  [[ -n $child ]] && kill "$child" 2>/dev/null
+  exit "$2"
+}
+trap 'on_sig TERM 143' TERM
+trap 'on_sig INT 130' INT
+[[ -n ${MOCK_STDERR:-} ]] && printf '%s\n' "$MOCK_STDERR" >&2
+echo "mock-stdout"
+if [[ -n ${MOCK_SLEEP:-} ]]; then
+  sleep "$MOCK_SLEEP" &
+  child=$!
+  echo "$child" >"$d/child"
+  wait "$child"
+fi
+exit "${MOCK_EXIT:-0}"

@@ -1,11 +1,14 @@
 {
   "name": "agy-subagent",
-  "owner": { "name": "MaheshThakur9152" },
+  "description": "Antigravity CLI (agy) worker agents for Claude Code and Codex.",
+  "owner": {
+    "name": "MaheshThakur9152"
+  },
   "plugins": [
     {
       "name": "agy",
       "source": "./",
-      "description": "Run Antigravity CLI (agy) as a subagent worker from Claude Code."
+      "description": "Delegate tasks to agy worker agents, one or many in parallel."
     }
   ]
 }

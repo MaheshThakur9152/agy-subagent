@@ -1,8 +1,10 @@
 {
   "name": "agy",
-  "version": "0.1.0",
-  "description": "Run Antigravity CLI (agy) as a subagent worker from Claude Code: headless, permissions skipped, caveman output, parallel-friendly.",
-  "author": { "name": "MaheshThakur9152" },
+  "version": "0.2.0",
+  "description": "Delegate tasks to Google Antigravity CLI (agy) worker agents: headless, parallel, explicit permission modes, caveman reports.",
+  "author": {
+    "name": "MaheshThakur9152"
+  },
   "repository": "https://github.com/MaheshThakur9152/agy-subagent",
   "license": "MIT"
 }
