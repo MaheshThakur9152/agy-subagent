@@ -4,3 +4,5 @@ tests/mock-agy text eol=lf
 *.svg text eol=lf
 *.ndjson text eol=lf
 *.yml text eol=lf
+*.gif binary
+*.webm binary

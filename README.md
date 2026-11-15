@@ -23,22 +23,19 @@
 
 ### Installation
 
-<!--
-  To add the installation video:
-  1. Open this README on github.com and click the pencil (Edit) icon.
-  2. Delete the <a>...</a> line below.
-  3. Drag your .mp4 or .mov file (max 100 MB) into the editor at that spot.
-     GitHub uploads it and inserts a link like https://github.com/user-attachments/assets/<id>
-  4. Keep that link on its own line, with a blank line above and below. GitHub then shows a video player.
--->
-<a href="#-quick-start"><img src="assets/video-install.svg" alt="Installation video, coming soon" width="100%"></a>
+Add the marketplace, install the plugin, check it is there. Recorded in Git Bash on Windows with a fresh Claude config.
+
+<a href="assets/install.webm"><img src="assets/install.gif" alt="Terminal recording: agy --version, claude plugin marketplace add MaheshThakur9152/agy-subagent, claude plugin install agy@agy-subagent, claude plugin details agy@agy-subagent" width="100%"></a>
+
+<sub>▶ <a href="assets/install.webm">Watch as video (WebM)</a></sub>
 
 ### Demo
 
-<!--
-  To add the demo video: same steps as above, replacing the <a>...</a> line below.
--->
-<a href="#-live-dashboard"><img src="assets/video-demo.svg" alt="Demo video, coming soon" width="100%"></a>
+Three real agy workers with `AGY_RUN_MAX_JOBS=2`: one waits in the queue, the AGY Control Center shows each tool call live, then the reports.
+
+<a href="assets/demo.webm"><img src="assets/demo.gif" alt="Terminal recording: three agy workers start, the AGY Control Center shows two running and one queued, tool calls stream in the events list, all three finish, and their reports are printed" width="100%"></a>
+
+<sub>▶ <a href="assets/demo.webm">Watch as video (WebM)</a> · recorded with <a href="demo/">VHS tapes</a>, re-record with <code>bash demo/record.sh</code></sub>
 
 ---
 
@@ -401,7 +398,7 @@ skills/agy/references/worker-prompts.md        prompt contract, roles, examples
 skills/agy/scripts/agy-run.sh                  the runner (no host dependency)
 skills/agy/scripts/agy-top.sh                  AGY Control Center: live terminal dashboard
 skills/agy/scripts/agy-ui.sh                   opens the dashboard in a Windows Terminal or tmux pane
-assets/                                        README images
+assets/                                        README images and the two recordings (GIF + WebM)
 tests/run.sh, tests/mock-agy, tests/fixtures/  test suite
 tests/e2e.sh                                   real agy smoke test
 tests/test-ui.sh                               launcher tests (fake wt.exe, tmux, cygpath)
