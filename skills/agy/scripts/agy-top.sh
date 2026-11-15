@@ -549,7 +549,7 @@ size() {
   ROWS=${s%% *} COLS=${s##* }
   [[ $ROWS =~ ^[0-9]+$ && $COLS =~ ^[0-9]+$ ]] || { ROWS=${LINES:-40} COLS=${COLUMNS:-100}; }
   ((ROWS < 18)) && ROWS=18
-  W=$COLS; ((W > 160)) && W=160; ((W < 50)) && W=50
+  W=$((COLS - 1)); ((W > 160)) && W=160; ((W < 50)) && W=50   # last column left free: some terminals clip it
   FULL=1
 }
 
