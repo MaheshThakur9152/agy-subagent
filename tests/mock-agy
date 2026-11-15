@@ -16,11 +16,39 @@ on_sig() {
 trap 'on_sig TERM 143' TERM
 trap 'on_sig INT 130' INT
 [[ -n ${MOCK_STDERR:-} ]] && printf '%s\n' "$MOCK_STDERR" >&2
-echo "mock-stdout"
+stream=0
+[[ " $* " == *" --output-format stream-json "* ]] && stream=1
+# MOCK_RESPONSE: JSON-escaped response body for stream-json mode.
+resp=${MOCK_RESPONSE-mock-stdout\\n}
+# MOCK_TOUCH: file the "worker" creates, for the runner's git footer.
+[[ -z ${MOCK_TOUCH:-} ]] || echo changed >"$MOCK_TOUCH"
+# MOCK_FIXTURE: replay a recorded agy stream-json session verbatim.
+if ((stream)) && [[ -n ${MOCK_FIXTURE:-} ]]; then
+  cat -- "$MOCK_FIXTURE"
+  exit "${MOCK_EXIT:-0}"
+fi
+if ((stream)); then
+  echo '{"event":"init","conversation_id":"c1","init":{"cwd":"x"}}'
+  echo '{"event":"step_update","step_update":{"step_index":1,"state":"DONE","step_type":"agent_response","duration_seconds":1.5}}'
+  echo '{"event":"step_update","step_update":{"step_index":2,"state":"ACTIVE","step_type":"tool","tool_name":"run_command","tool_info":{"name":"run_command","parameters":{"CommandLine":"npm test"}}}}'
+else
+  echo "mock-stdout"
+fi
 if [[ -n ${MOCK_SLEEP:-} ]]; then
   sleep "$MOCK_SLEEP" &
   child=$!
   echo "$child" >"$d/child"
   wait "$child"
+fi
+if ((stream)); then
+  echo '{"event":"step_update","step_update":{"step_index":2,"state":"DONE","step_type":"tool","tool_name":"run_command","duration_seconds":0.8,"tool_info":{"name":"run_command","parameters":{"CommandLine":"npm test"},"output":"ok"}}}'
+  # MOCK_BIG: bytes of tool output in one line, like a worker reading a large file.
+  [[ -z ${MOCK_BIG:-} ]] || {
+    printf '{"event":"step_update","step_update":{"step_index":4,"state":"DONE","step_type":"tool","tool_name":"view_file","tool_info":{"name":"view_file","parameters":{"AbsolutePath":"big.log"},"output":"'
+    head -c "$MOCK_BIG" /dev/zero | tr '\0' a
+    printf '"}}}\n'
+  }
+  printf '{"event":"step_update","step_update":{"step_index":3,"state":"ACTIVE","step_type":"agent_response","text_delta":"%s"}}\n' "$resp"
+  [[ -n ${MOCK_NO_RESULT:-} ]] || printf '{"event":"result","result":{"status":"SUCCESS","response":"%s","usage":{"total_tokens":20480}}}\n' "$resp"
 fi
 exit "${MOCK_EXIT:-0}"

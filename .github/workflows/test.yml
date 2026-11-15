@@ -1,0 +1,35 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install bash 5 and coreutils (macOS ships bash 3.2)
+        if: runner.os == 'macOS'
+        run: brew install bash coreutils
+
+      - name: Run tests (mock agy only)
+        shell: bash
+        run: |
+          if [[ $RUNNER_OS == macOS ]]; then
+            export PATH="$(brew --prefix)/bin:$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+          fi
+          bash --version | head -n1
+          bash tests/run.sh
+
+      - name: Check plugin manifests are valid JSON
+        if: runner.os == 'Linux'
+        run: |
+          python3 -m json.tool .claude-plugin/plugin.json >/dev/null
+          python3 -m json.tool .claude-plugin/marketplace.json >/dev/null

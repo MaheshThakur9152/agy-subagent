@@ -34,6 +34,18 @@ Roles are focus instructions, not extra model abilities. Put the focus line into
 | Debugging Specialist | Reproduce, isolate root cause with evidence, propose the narrowest fix. Do not refactor. | unattended |
 | Architecture Analyst | Map modules, data flow and dependencies for the named area. Output a short map and risks. Read-only. | sandbox |
 
+## Model per role
+
+Pass `--model` to match cost to the job. IDs change: check `agy models` once per session. Observed with agy 1.5.9:
+
+| Work | Model tier | Example IDs |
+|---|---|---|
+| Scouting, mapping, simple reviews, many parallel read-only workers | fast | `gemini-3.8-flash-medium`, `gemini-3.8-flash-low` |
+| Security audit, debugging, careful review | strong fast | `gemini-3.8-flash-high` |
+| Hard implementation, subtle bugs, architecture | strongest | `claude-opus-4-6-thinking`, `claude-sonnet-4-6` |
+
+Default to the fast tier for read-only fan-out and spend the strongest model only where a wrong answer is expensive.
+
 ## Examples
 
 Single worker, debugging:

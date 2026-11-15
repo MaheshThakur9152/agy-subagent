@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-label="agy-top.sh dashboard: three agy workers, their current tools, and one finishing">
+  <title>agy-top.sh live dashboard</title>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; fill: #c9d1d9; white-space: pre; }
+    .dim { fill: #8b949e; } .cyan { fill: #39c5cf; } .green { fill: #3fb950; } .bold { font-weight: 700; } .sel { fill: #39c5cf; }
+    /* spinner: four frames, one visible per 0.2s */
+    .f { opacity: 0; animation: frame .8s steps(1) infinite; }
+    .f1 { animation-delay: -.6s; } .f2 { animation-delay: -.4s; } .f3 { animation-delay: -.2s; }
+    @keyframes frame { 0% { opacity: 1; } 25%, 100% { opacity: 0; } }
+    /* 12s story: api-tests starts at 20%, auth-review finishes at 55% */
+    .s, .a1, .a2, .a3, .h1, .h2, .h3, .c2run, .c2done, .c3, .c3a, .c3b { animation: 12s steps(1) infinite; }
+    .h1 { animation-name: h1; } .h2 { animation-name: h2; } .h3 { animation-name: h3; }
+    @keyframes h1 { 0% { opacity: 1; } 20%, 100% { opacity: 0; } }
+    @keyframes h2 { 0% { opacity: 0; } 20% { opacity: 1; } 55%, 100% { opacity: 0; } }
+    @keyframes h3 { 0% { opacity: 0; } 55%, 100% { opacity: 1; } }
+    .c2run { animation-name: h1h2; } .c2done { animation-name: h3; }
+    @keyframes h1h2 { 0% { opacity: 1; } 55%, 100% { opacity: 0; } }
+    .c3 { animation-name: show3; } .c3a { animation-name: h2b; } .c3b { animation-name: h3b; }
+    @keyframes show3 { 0% { opacity: 0; } 20%, 100% { opacity: 1; } }
+    @keyframes h2b { 0% { opacity: 0; } 20% { opacity: 1; } 35%, 100% { opacity: 0; } }
+    @keyframes h3b { 0% { opacity: 0; } 35%, 100% { opacity: 1; } }
+    /* backend-perf cycles through tools */
+    .a1 { animation-name: t1; } .a2 { animation-name: t2; } .a3 { animation-name: t3; }
+    @keyframes t1 { 0% { opacity: 1; } 33%, 100% { opacity: 0; } }
+    @keyframes t2 { 0% { opacity: 0; } 33% { opacity: 1; } 66%, 100% { opacity: 0; } }
+    @keyframes t3 { 0% { opacity: 0; } 66%, 100% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
+      .f0, .h3, .c2done, .c3, .c3b, .a1 { opacity: 1; }
+      .f1, .f2, .f3, .h1, .h2, .c2run, .c3a, .a2, .a3 { opacity: 0; }
+    }
+  </style>
+  <defs>
+    <g id="spin">
+      <text class="f f0">⠋</text><text class="f f1">⠙</text><text class="f f2">⠹</text><text class="f f3">⠸</text>
+    </g>
+  </defs>
+
+  <rect width="900" height="430" rx="12" fill="#0d1117"/>
+  <rect x=".5" y=".5" width="899" height="429" rx="12" fill="none" stroke="#30363d"/>
+  <rect x="1" y="1" width="898" height="34" rx="11" fill="#161b22"/>
+  <rect x="1" y="24" width="898" height="11" fill="#161b22"/>
+  <circle cx="22" cy="18" r="6" fill="#ff5f57"/><circle cx="42" cy="18" r="6" fill="#febc2e"/><circle cx="62" cy="18" r="6" fill="#28c840"/>
+  <text x="450" y="23" text-anchor="middle" class="dim" style="font-size:13px">bash skills/agy/scripts/agy-top.sh</text>
+
+  <!-- header -->
+  <text x="24" y="66" class="bold" style="fill:#39c5cf">AGY CONTROL CENTER</text>
+  <use href="#spin" x="200" y="66" class="cyan"/>
+  <g class="h1"><text x="168" y="66" class="cyan">2 running</text><text x="268" y="66" class="green">✔ 0 done</text></g>
+  <g class="h2"><text x="168" y="66" class="cyan">3 running</text><text x="268" y="66" class="green">✔ 0 done</text></g>
+  <g class="h3"><text x="168" y="66" class="cyan">2 running</text><text x="268" y="66" class="green">✔ 1 done</text></g>
+  <text x="358" y="66" fill="#f85149" style="fill:#f85149">✖ 0 failed</text>
+  <text x="876" y="66" text-anchor="end" class="dim">12:06:33</text>
+  <line x1="24" y1="80" x2="876" y2="80" stroke="#30363d"/>
+
+  <!-- card 1: backend-perf, selected -->
+  <text x="24" y="108" class="sel">▌</text><text x="24" y="130" class="sel">▌</text><text x="24" y="152" class="sel">▌</text><text x="24" y="174" class="sel">▌</text>
+  <use href="#spin" x="40" y="108" class="cyan"/>
+  <text x="60" y="108" class="cyan bold">RUNNING</text>
+  <text x="170" y="108" class="bold">backend-perf</text>
+  <text x="876" y="108" text-anchor="end" class="dim">4m12s</text>
+  <text x="56" y="130" class="dim">unattended · gemini-3.8-flash-high · ~/app-agy-cache · 7 tools</text>
+  <text x="56" y="152" class="cyan a1">▸ run_command  npm test -- api/client</text>
+  <text x="56" y="152" class="cyan a2">▸ view_file  src/api/cache.py</text>
+  <text x="56" y="152" class="cyan a3">▸ grep_search  ttl_seconds</text>
+  <text x="56" y="174"><tspan class="green">✓</tspan><tspan class="dim"> view_file</tspan>  src/api/client.py</text>
+  <text x="876" y="174" text-anchor="end" class="dim">0.4s</text>
+
+  <!-- card 2: auth-review, finishes -->
+  <g class="c2run">
+    <use href="#spin" x="40" y="214" class="cyan"/>
+    <text x="60" y="214" class="cyan bold">RUNNING</text>
+    <text x="876" y="214" text-anchor="end" class="dim">1m58s</text>
+    <text x="56" y="258" class="cyan">▸ grep_search  password_hash</text>
+  </g>
+  <g class="c2done">
+    <text x="40" y="214" class="green bold">✔</text>
+    <text x="60" y="214" class="green bold">DONE</text>
+    <text x="876" y="214" text-anchor="end" class="dim">2m03s</text>
+    <text x="56" y="258" class="dim">No injection paths in src/auth. 2 weak spots, see report.</text>
+  </g>
+  <text x="170" y="214" class="bold">auth-review</text>
+  <text x="56" y="236" class="dim">sandbox · ~/app · 12 tools · 41.2k tok</text>
+
+  <!-- card 3: api-tests, starts later -->
+  <g class="c3">
+    <use href="#spin" x="40" y="298" class="cyan"/>
+    <text x="60" y="298" class="cyan bold">RUNNING</text>
+    <text x="170" y="298" class="bold">api-tests</text>
+    <text x="876" y="298" text-anchor="end" class="dim">0m09s</text>
+    <text x="56" y="320" class="dim">unattended · ~/app-agy-tests</text>
+    <text x="56" y="342" class="cyan c3a">starting agy…</text>
+    <text x="56" y="342" class="cyan c3b">▸ run_command  pytest tests/api -q</text>
+  </g>
+
+  <line x1="24" y1="388" x2="876" y2="388" stroke="#21262d"/>
+  <text x="24" y="412" class="dim">↑↓ select   enter report   q quit   ~/.local/state/agy-runs</text>
+</svg>

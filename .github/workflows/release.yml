@@ -1,0 +1,32 @@
+name: release
+
+# Push a tag like v0.4.0 to publish a GitHub Release with that version's CHANGELOG section.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tag must match plugin.json version
+        run: |
+          v=${GITHUB_REF_NAME#v}
+          have=$(python3 -c 'import json; print(json.load(open(".claude-plugin/plugin.json"))["version"])')
+          [ "$have" = "$v" ] || { echo "tag $GITHUB_REF_NAME but plugin.json version is $have"; exit 1; }
+
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          v=${GITHUB_REF_NAME#v}
+          awk -v v="$v" 'index($0, "## " v " ") == 1 {f=1; next} /^## / {f=0} f' CHANGELOG.md >notes.md
+          [ -s notes.md ] || { echo "no '## $v - <date>' section in CHANGELOG.md"; exit 1; }
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file notes.md

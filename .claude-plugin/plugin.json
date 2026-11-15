@@ -1,6 +1,6 @@
 {
   "name": "agy",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Delegate tasks to Google Antigravity CLI (agy) worker agents: headless, parallel, explicit permission modes, caveman reports.",
   "author": {
     "name": "MaheshThakur9152"
