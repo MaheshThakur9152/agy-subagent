@@ -35,7 +35,7 @@ Three real agy workers with `AGY_RUN_MAX_JOBS=2`: one waits in the queue, the AG
 
 <a href="assets/demo.webm"><img src="assets/demo.gif" alt="Terminal recording: three agy workers start, the AGY Control Center shows two running and one queued, tool calls stream in the events list, all three finish, and their reports are printed" width="100%"></a>
 
-<sub>▶ <a href="assets/demo.webm">Watch as video (WebM)</a> · recorded with <a href="demo/">VHS tapes</a>, re-record with <code>bash demo/record.sh</code></sub>
+<sub>▶ <a href="assets/demo.webm">Watch as video (WebM)</a></sub>
 
 ---
 
